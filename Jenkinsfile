@@ -33,7 +33,6 @@ pipeline {
                         sh 'docker login -u tejasac07 -p ${docker_hub_login}'
                     }
                     sh 'docker push tejasac07/calculator'
-                    sh 'docker push latest'
                 }
             }
         }
