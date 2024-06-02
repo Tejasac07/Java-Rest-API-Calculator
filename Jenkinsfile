@@ -16,10 +16,16 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage ('Build Docker Image') {
-            steps{
-                script{
-                    sh 'docker build -t tejasac07/calculator .'
+        stage('Build Docker Image') {
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                    app = docker.build("tejasac07/calculator")
+                    app.inside {
+                        sh 'echo $(curl localhost:8080)'
+                    }
                 }
             }
         }
