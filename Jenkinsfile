@@ -19,10 +19,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    app = docker.build("tejasac07/calculator")
-                    app.inside {
-                        sh 'echo $(curl localhost:5000)'
-                    }
+                    sh 'docker image build -t tejasac07/calculator .'
                 }
             }
         }
@@ -32,7 +29,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'docker_hub_login', variable: 'docker_hub_login')]) {
                         sh 'docker login -u tejasac07 -p ${docker_hub_login}'
                     }
-                    sh 'docker push tejasac07/calculator'
+                    sh 'docker image push tejasac07/calculator'
                 }
             }
         }
