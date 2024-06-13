@@ -8,7 +8,7 @@ pipeline {
         stage ('Checkout from github') {
             steps{
                 echo "User selected branch is ${params.branchName.split('/').last()}"
-                git branch: '${params.branchName.split('/').last()}', credentialsId: 'git_hub_cred', url: 'https://github.com/Tejasac07/Java-Rest-API-Calculator.git'
+                git branch: "${params.branchName.split('/').last()}", credentialsId: 'git_hub_cred', url: 'https://github.com/Tejasac07/Java-Rest-API-Calculator.git'
                 sh 'ls -ltr'
             }
         }
