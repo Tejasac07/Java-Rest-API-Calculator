@@ -20,7 +20,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("tejasac07/calculator1")
+                    dockerImage = docker.build("tejasac07/ + ${env.BUILD_NUMBER}")
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'docker_hub_login', variable: 'docker_hub_login')]) {
                         sh 'docker login -u tejasac07 -p ${docker_hub_login}'
                     }
-                    dockerImage.push("{env.BUILD_NUMBER}")
+                    dockerImage.push()
                     dockerImage.push("latest")
                 }
             }
