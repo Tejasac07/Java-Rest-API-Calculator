@@ -30,7 +30,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'docker_hub_login', variable: 'docker_hub_login')]) {
                         sh 'docker login -u tejasac07 -p ${docker_hub_login}'
                     }
-                    dockerImage.push("{env.BUILD_ID}")
+                    dockerImage.push("{env.BUILD_NUMBER}")
                     dockerImage.push("latest")
                 }
             }
