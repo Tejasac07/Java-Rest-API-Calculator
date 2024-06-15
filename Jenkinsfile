@@ -20,7 +20,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com/', 'docker') {
+                    docker.withRegistry('https://hub.docker.com/repository/docker/tejasac07/calculator/general', 'docker') {
                         def dockerImage = docker.build("my-image:${env_BUILD_ID}")
                         dockerImage.push()
                     }
