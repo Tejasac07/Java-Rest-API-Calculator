@@ -23,6 +23,7 @@ pipeline {
                     docker.withRegistry('https://hub.docker.com/', 'docker') {
                         def dockerImage = docker.build("my-image:${env_BUILD_ID}")
                         dockerImage.push()
+                    }
                 }
             }
         }
