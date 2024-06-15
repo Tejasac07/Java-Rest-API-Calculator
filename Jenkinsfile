@@ -20,18 +20,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("${env.BUILD_NUMBER}")
-                }
-            }
-        }
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'docker_hub_login', variable: 'docker_hub_login')]) {
-                        sh 'docker login -u tejasac07 -p ${docker_hub_login}'
-                    }
-                    sh 'docker image tag ${env.BUILD_NUMBER} tejasac07/calculator1:${env.BUILD_NUMBER}'
-                    sh 'docker image push tejasac07/calculator1:${env.BUILD_NUMBER}'
+                    docker.withRegistry('https://hub.docker.com/', 'docker') {
+                        def dockerImage = docker.build("my-image:${env_BUILD_ID}")
+                        dockerImage.push()
                 }
             }
         }
