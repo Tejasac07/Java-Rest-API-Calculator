@@ -17,6 +17,31 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+
+        stage('Upload File to Artifactory') {
+            steps {
+                rtServer (
+                id: "eGift-Artifactory",
+                url: "http://52.91.49.76:8081/artifactory",
+                username: 'admin',
+                password: 'Jfrog@543'
+                //credentialsId: ""
+            )
+            rtUpload (
+            serverId: "eGift-Artifactory",
+            failNoOp: true,
+            spec:"""{
+                "files": [
+                    {
+                    "pattern": "*.jar",
+                    "target": "Test-Repo"
+                    }
+                ]
+                }"""
+            )
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
