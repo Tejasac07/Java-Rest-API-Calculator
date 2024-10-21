@@ -13,6 +13,11 @@ pipeline {
             }
         }
 
+        stage ('Hello world') {
+            steps{
+                sh 'Hello'
+            }
+        }
         
     }
 }
