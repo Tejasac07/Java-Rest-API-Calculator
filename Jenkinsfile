@@ -8,7 +8,8 @@ pipeline {
         stage ('Checkout from github') {
             steps{
                 echo "User selected branch is ${params.branchName.split('/').last()}"
-                git branch: "${params.branchName.split('/').last()}", url: 'https://github.com/Tejasac07/Java-Rest-API-Calculator.git'
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/Tejasac07/Java-Rest-API-Calculator']])
+                //git branch: "${params.branchName.split('/').last()}", url: 'https://github.com/Tejasac07/Java-Rest-API-Calculator.git'
                 sh 'ls -ltr'
             }
         }
