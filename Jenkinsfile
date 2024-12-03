@@ -14,9 +14,11 @@ pipeline {
             }
         }
 
-        stage ('Hello world') {
+        stage ('Build Package') {
             steps{
-                sh 'Hello'
+                script {
+                    sh 'mvn clean package'
+                }
             }
         }
     }
